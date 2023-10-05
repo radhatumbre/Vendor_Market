@@ -4,6 +4,9 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
+import "./EventCard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons"; // Example icon import
 
 const EventCard = () => {
   const [events, setEvents] = useState([]);
@@ -59,33 +62,63 @@ const EventCard = () => {
 
   return (
     <div className="event-card-container">
-      <div className="filter-bar">
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Location</InputGroup.Text>
-          <FormControl
-            placeholder="Search location"
-            onChange={handleLocationFilter}
-            value={locationFilter}
-          />
-        </InputGroup>
-        <Button variant="primary" onClick={handleSortByPrice}>
-          Price {sortedByPrice ? "⬆️" : "⬇️"}
-        </Button>
-        <Button variant="primary" onClick={handleSortByRating}>
-          Rating {sortedByRating ? "⬆️" : "⬇️"}
-        </Button>
+      
+      <div className="flower-col">
+
+        
+        <div className="filter-container">
+        <div className="filter-bar">
+          <div className="d-flex justify-content-between">
+            <InputGroup className="location-filter mb-3">
+              <InputGroup.Text>Location</InputGroup.Text>
+              <FormControl
+                placeholder="Search location"
+                onChange={handleLocationFilter}
+                value={locationFilter}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3" style={{ marginLeft: "100px" }}>
+              <Button variant="primary" onClick={handleSortByPrice}>
+                Price {sortedByPrice ? "⬆️" : "⬇️"}
+              </Button>
+            </InputGroup>
+            <InputGroup className="mb-3" style={{ marginLeft: "10px" }}>
+              <Button variant="primary" onClick={handleSortByRating}>
+                Rating {sortedByRating ? "⬆️" : "⬇️"}
+              </Button>
+            </InputGroup>
+          </div>
+        </div>
       </div>
-      {filteredEvents.map((event) => (
-        <Card key={event._id}>
-          <Card.Body>
-            <Card.Title>{event.eventTitle}</Card.Title>
-            <Card.Text>{event.description}</Card.Text>
-            <Card.Text>Location: {event.location}</Card.Text>
-            <Card.Text>Price: {event.eventPrice}</Card.Text>
-            <Card.Text>Rating: {event.eventRating}</Card.Text>
-          </Card.Body>
-        </Card>
+        {filteredEvents.map((event) => (
+        <div key={event._id} className="card-container">
+          <Card key={event._id} className="card">
+            <Card.Body>
+              <div className="left-card">
+                {/* <FontAwesomeIcon icon={faUser} /> */}
+              </div>
+              <div className="middle-card">
+                <Card.Title>{event.eventTitle}</Card.Title>
+                <Card.Text>{event.description}</Card.Text>
+              </div>
+              <div className="right-card">
+                <Card.Text>Location: {event.location}</Card.Text>
+                <Card.Text>Price: {event.eventPrice}</Card.Text>
+                <Card.Text>Rating: {event.eventRating}</Card.Text>
+              </div>
+              {/* Add your button here */}
+            </Card.Body>
+            <Button className="quotation-btn">
+            Contact
+          </Button>{" "}
+          </Card>
+          
+          {/* Add your button here */}
+        </div>
       ))}
+      </div>
+      
+      
     </div>
   );
 };
